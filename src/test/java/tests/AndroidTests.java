@@ -12,6 +12,7 @@ import static io.appium.java_client.AppiumBy.accessibilityId;
 import static io.appium.java_client.AppiumBy.id;
 import static io.qameta.allure.Allure.step;
 
+@Tag("android")
 public class AndroidTests extends TestBase {
 
     @Test

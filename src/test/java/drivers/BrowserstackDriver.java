@@ -1,6 +1,8 @@
 package drivers;
 
 import com.codeborne.selenide.WebDriverProvider;
+import config.BrowserstackConfig;
+import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
@@ -12,31 +14,25 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class BrowserstackDriver implements WebDriverProvider {
+
+    static final BrowserstackConfig config = ConfigFactory.create(BrowserstackConfig.class, System.getProperties());
+
     @Nonnull
     @Override
     public WebDriver createDriver(@Nonnull Capabilities capabilities) {
         MutableCapabilities caps = new MutableCapabilities();
 
-        // Set your access credentials
-        caps.setCapability("browserstack.user", "user_ylT3qU");
-        caps.setCapability("browserstack.key", "VaykixsYYLxpisjraPmx");
-
-        // Set URL of the application under test
-        caps.setCapability("app", "bs://444bd0308813ae0dc236f8cd461c02d3afa7901d");
-
-        // Specify device and os_version for testing
-        caps.setCapability("device", "iPhone 14 Pro Max");
-        caps.setCapability("os_version", "16");
-
-        // Set other BrowserStack capabilities
+        caps.setCapability("browserstack.user", config.getUserName());
+        caps.setCapability("browserstack.key", config.getAccessKey());
+        caps.setCapability("app", config.getApp());
+        caps.setCapability("device", config.getDevice());
+        caps.setCapability("os_version", config.getOSVersion());
         caps.setCapability("project", "First Browserstack Project");
         caps.setCapability("build", "browserstack-build-1");
         caps.setCapability("name", "first_test");
 
-        // Initialise the remote Webdriver using BrowserStack remote URL
-        // and desired capabilities defined above
         try {
-            return new RemoteWebDriver(new URL("https://hub.browserstack.com/wd/hub"), caps);
+            return new RemoteWebDriver(new URL(config.getUrl()), caps);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
