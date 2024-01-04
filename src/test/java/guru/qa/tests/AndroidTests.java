@@ -1,4 +1,4 @@
-package tests;
+package guru.qa.tests;
 
 
 import org.junit.jupiter.api.Tag;
@@ -12,10 +12,10 @@ import static io.appium.java_client.AppiumBy.accessibilityId;
 import static io.appium.java_client.AppiumBy.id;
 import static io.qameta.allure.Allure.step;
 
-@Tag("android")
 public class AndroidTests extends TestBase {
 
     @Test
+    @Tag("android")
     void successfulSearchTest() {
         step("Ввести в поиск Appium", () -> {
             $(accessibilityId("Search Wikipedia")).click();
@@ -26,6 +26,7 @@ public class AndroidTests extends TestBase {
     }
 
     @Test
+    @Tag("android")
     void openArticleTest() {
         step("Ввести в поиск Appium", () -> {
             $(accessibilityId("Search Wikipedia")).click();
@@ -38,6 +39,5 @@ public class AndroidTests extends TestBase {
             $(id("org.wikipedia.alpha:id/view_wiki_error_text")).shouldHave(text("An error occurred"));
             $(id("org.wikipedia.alpha:id/view_wiki_error_button")).shouldHave(text("GO BACK"));
         });
-
     }
 }

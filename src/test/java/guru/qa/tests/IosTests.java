@@ -1,4 +1,4 @@
-package tests;
+package guru.qa.tests;
 
 import io.appium.java_client.AppiumBy;
 import org.junit.jupiter.api.Tag;

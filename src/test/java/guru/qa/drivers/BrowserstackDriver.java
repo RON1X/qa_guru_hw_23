@@ -1,12 +1,11 @@
-package drivers;
+package guru.qa.drivers;
 
 import com.codeborne.selenide.WebDriverProvider;
-import config.BrowserstackConfig;
+import guru.qa.config.BrowserstackConfig;
 import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import javax.annotation.Nonnull;
@@ -15,7 +14,7 @@ import java.net.URL;
 
 public class BrowserstackDriver implements WebDriverProvider {
 
-    static final BrowserstackConfig config = ConfigFactory.create(BrowserstackConfig.class, System.getProperties());
+    static BrowserstackConfig config = ConfigFactory.create(BrowserstackConfig.class, System.getProperties());
 
     @Nonnull
     @Override
@@ -30,6 +29,13 @@ public class BrowserstackDriver implements WebDriverProvider {
         caps.setCapability("project", "First Browserstack Project");
         caps.setCapability("build", "browserstack-build-1");
         caps.setCapability("name", "first_test");
+
+        System.out.println("browserstack.user:" + config.getUserName());
+        System.out.println("browserstack.key:" + config.getAccessKey());
+        System.out.println("app:" + config.getApp());
+        System.out.println("device:" + config.getDevice());
+        System.out.println("os_version:" + config.getOSVersion());
+        System.out.println("URL:" + config.getUrl());
 
         try {
             return new RemoteWebDriver(new URL(config.getUrl()), caps);
