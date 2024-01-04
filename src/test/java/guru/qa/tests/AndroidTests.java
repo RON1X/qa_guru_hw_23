@@ -17,27 +17,29 @@ public class AndroidTests extends TestBase {
     @Test
     @Tag("android")
     void successfulSearchTest() {
-        step("Ввести в поиск Appium", () -> {
+        step("Type search", () -> {
             $(accessibilityId("Search Wikipedia")).click();
             $(id("org.wikipedia.alpha:id/search_src_text")).sendKeys("Appium");
         });
-        step("Проверить что количество найденных результатов больше 0", () ->
-                $$(id("org.wikipedia.alpha:id/page_list_item_title")).shouldHave(sizeGreaterThan(0)));
+        step("Verify content found", () ->
+                $$(id("org.wikipedia.alpha:id/page_list_item_title"))
+                        .shouldHave(sizeGreaterThan(0)));
     }
 
     @Test
     @Tag("android")
     void openArticleTest() {
-        step("Ввести в поиск Appium", () -> {
+        step("Type search", () -> {
             $(accessibilityId("Search Wikipedia")).click();
             $(id("org.wikipedia.alpha:id/search_src_text")).sendKeys("Appium");
         });
-        step("Открыть статью", () -> {
+        step("Open article", () -> {
             $(id("org.wikipedia.alpha:id/page_list_item_title")).click();
         });
-        step("Проверить результат", () -> {
+        step("Check result", () -> {
             $(id("org.wikipedia.alpha:id/view_wiki_error_text")).shouldHave(text("An error occurred"));
             $(id("org.wikipedia.alpha:id/view_wiki_error_button")).shouldHave(text("GO BACK"));
         });
+
     }
 }

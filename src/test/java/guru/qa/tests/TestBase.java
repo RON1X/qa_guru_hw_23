@@ -1,6 +1,7 @@
 package guru.qa.tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import guru.qa.drivers.BrowserstackDriver;
 import guru.qa.helpers.Attach;
@@ -27,8 +28,9 @@ public class TestBase {
 
     @AfterEach
     void addAttachments() {
-        Attach.pageSource();
+        String sessionId = Selenide.sessionId().toString();
+        //Attach.pageSource();
         closeWebDriver();
-        Attach.addVideo(sessionId().toString());
+        Attach.addVideo(sessionId);
     }
 }
