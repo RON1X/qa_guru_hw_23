@@ -30,13 +30,6 @@ public class BrowserstackDriver implements WebDriverProvider {
         caps.setCapability("build", "browserstack-build-1");
         caps.setCapability("name", "first_test");
 
-        System.out.println("browserstack.user:" + config.getUserName());
-        System.out.println("browserstack.key:" + config.getAccessKey());
-        System.out.println("app:" + config.getApp());
-        System.out.println("device:" + config.getDevice());
-        System.out.println("os_version:" + config.getOSVersion());
-        System.out.println("URL:" + config.getUrl());
-
         try {
             return new RemoteWebDriver(new URL(config.getUrl()), caps);
         } catch (MalformedURLException e) {
