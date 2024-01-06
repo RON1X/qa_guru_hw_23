@@ -1,45 +1,48 @@
 package guru.qa.tests;
 
 
+import io.appium.java_client.AppiumBy;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
-import static io.appium.java_client.AppiumBy.accessibilityId;
 import static io.appium.java_client.AppiumBy.id;
 import static io.qameta.allure.Allure.step;
 
 public class AndroidTests extends TestBase {
 
     @Test
+    @DisplayName("Прохождение онбординга")
     @Tag("android")
-    void successfulSearchTest() {
-        step("Type search", () -> {
-            $(accessibilityId("Search Wikipedia")).click();
-            $(id("org.wikipedia.alpha:id/search_src_text")).sendKeys("Appium");
+    void onboardingTest() {
+        step("Открыта 1-ая страница онбординга", () -> {
+            $(id("org.wikipedia.alpha:id/primaryTextView")).shouldHave(text("The Free Encyclopedia …in over 300 languages"));
         });
-        step("Verify content found", () ->
-                $$(id("org.wikipedia.alpha:id/page_list_item_title"))
-                        .shouldHave(sizeGreaterThan(0)));
-    }
-
-    @Test
-    @Tag("android")
-    void openArticleTest() {
-        step("Type search", () -> {
-            $(accessibilityId("Search Wikipedia")).click();
-            $(id("org.wikipedia.alpha:id/search_src_text")).sendKeys("Appium");
+        step("Нажать continue", () -> {
+            $(id("org.wikipedia.alpha:id/fragment_onboarding_forward_button")).click();
         });
-        step("Open article", () -> {
-            $(id("org.wikipedia.alpha:id/page_list_item_title")).click();
+        step("Открыта 2-ая страница онбординга", () -> {
+            $(id("org.wikipedia.alpha:id/primaryTextView")).shouldHave(text("New ways to explore"));
         });
-        step("Check result", () -> {
-            $(id("org.wikipedia.alpha:id/view_wiki_error_text")).shouldHave(text("An error occurred"));
-            $(id("org.wikipedia.alpha:id/view_wiki_error_button")).shouldHave(text("GO BACK"));
+        step("Нажать continue", () -> {
+            $(id("org.wikipedia.alpha:id/fragment_onboarding_forward_button")).click();
         });
-
+        step("Открыта 3-ая страница онбординга", () -> {
+            $(id("org.wikipedia.alpha:id/primaryTextView")).shouldHave(text("Reading lists with sync"));
+        });
+        step("Нажать continue", () -> {
+            $(id("org.wikipedia.alpha:id/fragment_onboarding_forward_button")).click();
+        });
+        step("Открыта 4-ая страница онбординга", () -> {
+            $(id("org.wikipedia.alpha:id/primaryTextView")).shouldHave(text("Send anonymous data"));
+        });
+        step("Нажать Accept", () -> {
+            $(id("org.wikipedia.alpha:id/acceptButton")).click();
+        });
+        step("Открыта вкладка Explore", () -> {
+            $(AppiumBy.id("org.wikipedia.alpha:id/navigation_bar_item_large_label_view")).shouldHave(text("Explore"));
+        });
     }
 }

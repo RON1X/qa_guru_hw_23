@@ -3,7 +3,7 @@ package guru.qa.config;
 import org.aeonbits.owner.Config;
 
 @Config.Sources({
-        "classpath:${env}.properties"
+        "classpath:${deviceHost}.properties"
 })
 public interface BrowserstackConfig extends Config {
     @Key("accessKey")
